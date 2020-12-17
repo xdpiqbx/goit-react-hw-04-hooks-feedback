@@ -1,49 +1,54 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import Feedback from './components/Feedback';
 import Statistics from './components/Statistics';
 
 import s from './App.module.css';
 
-class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+function App () {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
-  increment = type => {
-    this.setState({ [type]: this.state[type] + 1 });
-  };
-
-  countTotalFeedback() {
-    return Object.values(this.state).reduce((acc, value) => {
-      return acc + value;
-    }, 0);
+  function increment(type){
+    switch(type){
+      case "good":
+        setGood(good+1)
+        return
+      case "neutral":
+        setNeutral(neutral+1)
+        return
+      case "bad":
+        setBad(bad+1)
+        return
+      default:
+        return
+    }
   }
 
-  countPositiveFeedbackPercentage() {
-    return Math.floor((this.state.good * 100) / this.countTotalFeedback());
+  function countTotalFeedback() {
+    return good + neutral + bad;
   }
 
-  render() {
-    const { good, neutral, bad } = this.state;
-    return (
-      <div className={s.App}>
-        <Feedback
-          options={['good', 'neutral', 'bad']}
-          onLeaveFeedback={this.increment}
-        />
-        <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          total={this.countTotalFeedback()}
-          percent={this.countPositiveFeedbackPercentage()}
-        />
-      </div>
-    );
+  function countPositiveFeedbackPercentage() {
+    return Math.floor((good * 100) / countTotalFeedback());
   }
+
+  return (
+    <div className={s.App}>
+      <Feedback
+        options={['good', 'neutral', 'bad']}
+        onLeaveFeedback={increment}
+      />
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={countTotalFeedback()}
+        percent={countPositiveFeedbackPercentage()}
+      />
+    </div>
+  );
 }
 
 export default App;
