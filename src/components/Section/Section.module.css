@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  width: 300px;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
