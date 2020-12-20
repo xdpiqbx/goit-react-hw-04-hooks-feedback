@@ -13,13 +13,13 @@ function App () {
   function increment(type){
     switch(type){
       case "good":
-        setGood(good+1)
+        setGood(prevGood => prevGood + 1)
         return
       case "neutral":
-        setNeutral(neutral+1)
+        setNeutral(prevNeutral => prevNeutral + 1)
         return
       case "bad":
-        setBad(bad+1)
+        setBad(prevBad => prevBad + 1)
         return
       default:
         return
